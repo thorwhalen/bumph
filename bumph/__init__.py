@@ -1,4 +1,5 @@
 """Simple access to docx (Word Doc) elements."""
+
 from io import BytesIO
 import docx  # https://automatetheboringstuff.com/chapter13/  (pip install python-docx)
 from py2store.util import ModuleNotFoundErrorNiceMessage
