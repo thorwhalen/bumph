@@ -7,11 +7,19 @@ from py2store import wrap_kvs
 
 
 def get_text_from_docx(doc):
-    """Get text from docx.Document object.
-    More precisely, 'text' will be the newline-separated concatenation of the .text attributes of every paragraph.
-    You can got a document object from a file path of pointer f by doing:
-        import docx  # pip install python-docx
-        doc = docx.Document(f)
+    r"""Get text from a ``docx.Document`` object.
+
+    More precisely, 'text' is the newline-separated concatenation of the
+    ``.text`` attributes of every paragraph. You get a document object from a
+    file path or pointer ``f`` with ``docx.Document(f)`` (``import docx``;
+    ``pip install python-docx``).
+
+    >>> import docx
+    >>> doc = docx.Document()
+    >>> _ = doc.add_paragraph('hello')
+    >>> _ = doc.add_paragraph('world')
+    >>> get_text_from_docx(doc)
+    'hello\nworld'
     """
     fullText = []
     for para in doc.paragraphs:
@@ -24,9 +32,9 @@ def bytes_to_doc(doc_bytes):
 
 
 LocalDocxStore = wrap_kvs(
-    LocalBinaryStore, "LocalDocxStore", obj_of_data=bytes_to_doc
+    LocalBinaryStore, name="LocalDocxStore", obj_of_data=bytes_to_doc
 )
 
 LocalDocxTextStore = wrap_kvs(
-    LocalDocxStore, "LocalDocxTextStore", obj_of_data=get_text_from_docx
+    LocalDocxStore, name="LocalDocxTextStore", obj_of_data=get_text_from_docx
 )
